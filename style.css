@@ -1,0 +1,23 @@
+.container {
+	margin:5% auto 0 auto;
+}
+h5 {
+	font-size:16px;
+	font-weight:600;
+}
+button {
+	margin-top:2%;
+}
+.btn:not(:first-of-type) {
+	margin-left:1%;
+}
+input {
+	width:90%;
+}
+.modal-body p:last-of-type {
+	margin:2% 0;
+}
+textarea {
+	resize: vertical;
+	width:90%;
+}
