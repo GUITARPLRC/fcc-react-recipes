@@ -6,6 +6,7 @@ import AddModal from './AddModal';
 var RecipeList = React.createClass({
 	getInitialState() {
 		return {
+			recipes: this.props.recipes,
 			showModal: false
 		}
 	},
@@ -18,13 +19,24 @@ var RecipeList = React.createClass({
 		this.setState({showModal: false});
 	},
 
+	save(data) {
+		var recipes = [
+			...this.state.recipes,
+			{...data}
+		];
+		localStorage.setItem('recipes', JSON.stringify(recipes));
+		this.setState({
+			recipes,
+			showModal: false
+		});
+	},
+
 	render() {
 		var rows = [];
-		for (let i = 0; i < this.props.recipes.length; i++) {
-			rows.push(<RecipeCard bsStyle={"success"} title={this.props.recipes[i].title}
-				 ingredients={this.props.recipes[i].ingredients} key={i} eventKey={i} />);
+		for (let i = 0; i < this.state.recipes.length; i++) {
+			rows.push(<RecipeCard bsStyle={"success"} title={this.state.recipes[i].title}
+				 ingredients={this.state.recipes[i].ingredients} key={i} eventKey={i} />);
 		}
-
 		return (
 			<div>
 				<Jumbotron>
@@ -35,7 +47,7 @@ var RecipeList = React.createClass({
 						<Button bsSize="large" bsStyle="primary" onClick={this.open}>Add Recipe</Button>
 					</Grid>
 				</Jumbotron>
-				{this.state.showModal && <AddModal show={this.state.showModal} close={this.close} save={this.props.save} />}
+				{this.state.showModal && <AddModal show={this.state.showModal} close={this.close} save={this.save} />}
 			</div>
 		)
 	}

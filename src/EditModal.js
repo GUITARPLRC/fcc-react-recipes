@@ -1,6 +1,10 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
+/**
+ * you might want to consider just reusing the AddModal for
+ * the purpose of editing as well.  this looks like Duplicate codes
+ */
 var EditModal = React.createClass({
 	componentDidMount() {
 		var title = document.getElementById('title');
