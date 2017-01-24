@@ -1,0 +1,26 @@
+.well {
+	margin:2% 0 0 0;
+}
+.jumbotron {
+	min-height:100vh;
+	margin-bottom:0 !important;
+}
+.panel-heading > h4 > a {
+	cursor:pointer;
+}
+.modal-body p {
+	font-weight: 700;
+}
+.modal-body p:first-of-type {
+	margin:0;
+}
+.modal-body > input, .modal-body > textarea {
+	padding:0.5%;
+	width:100%;
+}
+.modal-body p:last-of-type {
+	margin:2% 0 0 0;
+}
+.modal-body > textarea {
+	resize: vertical;
+}
