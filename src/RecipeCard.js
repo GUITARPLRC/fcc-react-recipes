@@ -1,11 +1,12 @@
 import React from 'react';
 import { Panel, ListGroup, ListGroupItem, ButtonToolbar, Button } from 'react-bootstrap';
-import EditModal from './EditModal';
+import Modal from './Modal';
 
 var RecipeCard = React.createClass({
 	getInitialState() {
 		return {
-			showModal: false
+			showModal: false,
+			index: this.props.id
 		}
 	},
 
@@ -17,16 +18,8 @@ var RecipeCard = React.createClass({
 		this.setState({showModal: false});
 	},
 
-	edit() {
-		return
-	},
-
-	delete() {
-		return
-	},
-
 	render() {
-		const {title, ingredients, bsStyle, ...other} = this.props;
+		const {title, ingredients, bsStyle, handleClick, ...other} = this.props;
 
 		var list = [];
 		for (let i = 0; i < ingredients.length; i++) {
@@ -41,10 +34,10 @@ var RecipeCard = React.createClass({
 				</ListGroup>
 				<ButtonToolbar>
 					<Button bsStyle="default" onClick={this.open}>Edit Recipe</Button>
-					<Button bsStyle="danger">Delete Recipe</Button>
+					<Button bsStyle="danger" onClick={el => handleClick(el.target.parentNode.parentNode.parentNode.id)}>Delete Recipe</Button>
 				</ButtonToolbar>
-				{ this.state.showModal && <EditModal show={this.state.showModal}
-				title={title} ingredients={ingredients} close={this.close} /> }
+				{ this.state.showModal && <Modal show={this.state.showModal}
+				title={title} ingredients={ingredients} close={this.close} save={this.save} /> }
 			</Panel>
 		)
 	}

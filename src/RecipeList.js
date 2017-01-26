@@ -1,11 +1,12 @@
 import React from 'react';
 import { Jumbotron, Grid, Accordion, Button } from 'react-bootstrap';
 import RecipeCard from './RecipeCard';
-import AddModal from './AddModal';
+import Modal from './Modal';
 
 var RecipeList = React.createClass({
 	getInitialState() {
 		return {
+			recipes: this.props.recipes,
 			showModal: false
 		}
 	},
@@ -18,24 +19,32 @@ var RecipeList = React.createClass({
 		this.setState({showModal: false});
 	},
 
-	save() {
-		var name = document.getElementById('name').value;
-		var ingredients = document.getElementById('list').value.replace(/^, /g, '').split(',');
-		this.props.recipes.push({name: name, ingredients: ingredients});
-		localStorage.setItem('recipes', JSON.stringify(this.props.recipes));
+	save(data) {
+		var recipes = [
+			...this.state.recipes,
+			{...data}
+		];
+		localStorage.setItem('recipes', JSON.stringify(recipes));
+		this.setState({
+			recipes,
+			showModal: false
+		});
+	},
 
-		/*TODO re-render list*/
-		this.setState({showModal: false});
+	delete(targetId) {
+		var recipes = [...this.state.recipes];
+		recipes.splice(targetId, 1);
+		localStorage.setItem('recipes', JSON.stringify(recipes));
+		this.setState({recipes});
 	},
 
 	render() {
-
 		var rows = [];
-		for (let i = 0; i < this.props.recipes.length; i++) {
-			rows.push(<RecipeCard bsStyle={"success"} title={this.props.recipes[i].title}
-				 ingredients={this.props.recipes[i].ingredients} key={i} eventKey={i} />);
+		var number = 0;
+		for (let i = 0; i < this.state.recipes.length; i++) {
+			rows.push(<RecipeCard bsStyle={"success"} title={this.state.recipes[i].title}
+				 ingredients={this.state.recipes[i].ingredients} id={number++} key={i} eventKey={i} handleClick={this.delete} />);
 		}
-
 		return (
 			<div>
 				<Jumbotron>
@@ -46,7 +55,7 @@ var RecipeList = React.createClass({
 						<Button bsSize="large" bsStyle="primary" onClick={this.open}>Add Recipe</Button>
 					</Grid>
 				</Jumbotron>
-				{this.state.showModal && <AddModal show={this.state.showModal} close={this.close} save={this.save} />}
+				{this.state.showModal && <Modal show={this.state.showModal} close={this.close} save={this.save} />}
 			</div>
 		)
 	}
