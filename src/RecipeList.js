@@ -55,7 +55,7 @@ var RecipeList = React.createClass({
 						<Button bsSize="large" bsStyle="primary" onClick={this.open}>Add Recipe</Button>
 					</Grid>
 				</Jumbotron>
-				{this.state.showModal && <Modal show={this.state.showModal} close={this.close} save={this.save} />}
+				{ this.state.showModal && <Modal show={this.state.showModal} close={this.close} save={this.save} /> }
 			</div>
 		)
 	}

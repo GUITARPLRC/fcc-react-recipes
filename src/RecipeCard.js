@@ -6,7 +6,7 @@ var RecipeCard = React.createClass({
 	getInitialState() {
 		return {
 			showModal: false,
-			index: this.props.id
+			index: this.props.id,
 		}
 	},
 
@@ -36,8 +36,8 @@ var RecipeCard = React.createClass({
 					<Button bsStyle="default" onClick={this.open}>Edit Recipe</Button>
 					<Button bsStyle="danger" onClick={el => handleClick(el.target.parentNode.parentNode.parentNode.id)}>Delete Recipe</Button>
 				</ButtonToolbar>
-				{ this.state.showModal && <Modal show={this.state.showModal}
-				title={title} ingredients={ingredients} close={this.close} save={this.save} /> }
+				{ this.state.showModal && <Modal title={title} ingredients={ingredients}
+					show={this.state.showModal} close={this.close} save={this.props.save} /> }
 			</Panel>
 		)
 	}

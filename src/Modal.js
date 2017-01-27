@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-var AddModal = React.createClass({
+var TheModal = React.createClass({
 	getInitialState() {
 		return {
 			ingredients: this.props.ingredients || "",
@@ -11,41 +11,34 @@ var AddModal = React.createClass({
 
 	updateIngredients(e) {
 		this.setState({
-			ingredients: e.target.value,
+			ingredients: e.target.value
 		})
 	},
 
 	updateName(e) {
 		this.setState({
-			title: e.target.value,
+			title: e.target.value
 		})
 	},
 
-
 	save() {
-		const ingredients =  this.state.ingredients.split(',').map((ing) => {
-			return ing.trim()
-		});
+		var ingredients;
+		if (this.state.ingredients.length !== 1) {
+			ingredients =  this.state.ingredients.split(',').map((ing) => {
+				return ing.trim()
+				});
+		} else {
+			ingredients = this.state.ingredients;
+		}
 
 		this.props.save({
-			title: this.state.title,
+			title: this.state.title || 'Untitled',
 			ingredients: ingredients
 		})
 
-		this.props.close()
+		this.props.close();
 	},
 
-
-	/**
-	 * In react we ususally use what's called controlled inputs. This means:
-	 * The value of the input is controlled by state, not actually what's typed.
-	 * As you type, state is set,therefore triggering a rerender updating the input.
-	 *
-	 * You don't have to use a controlled input.
-	 * You could also used what's called a ref which is more like what you were
-	 * doing before.  But you'll see that controlled inputs give you a lot of power.
-	 * https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/
-	 */
 	render() {
 		return (
 			<Modal show={this.props.show} onHide={this.props.close}>
@@ -77,4 +70,4 @@ var AddModal = React.createClass({
 	}
 })
 
-export default AddModal;
+export default TheModal;
