@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Navbar, Grid } from 'react-bootstrap';
 
-var Header = React.createClass({
+export default class Header extends Component {
 	render() {
 		return (
 			<div>
@@ -17,6 +17,4 @@ var Header = React.createClass({
 			</div>
 		)
 	}
-})
-
-export default Header;
+}

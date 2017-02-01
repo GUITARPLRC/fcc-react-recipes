@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Header from './Header';
 import RecipeList from './RecipeList';
+
+console.clear();
 
 var recipes = (localStorage.getItem('recipes')) ? JSON.parse(localStorage["recipes"]) : [
 	{title: 'Pizza', ingredients: ['Dough', 'Tomato Sauce', 'Cheese']},
@@ -9,7 +11,7 @@ var recipes = (localStorage.getItem('recipes')) ? JSON.parse(localStorage["recip
 	{title: 'Hot Pocket', ingredients: ['Hot Pocket']}
 ];
 
-var App = React.createClass({
+export default class App extends Component {
   render() {
     return (
       <div className="App">
@@ -18,6 +20,4 @@ var App = React.createClass({
       </div>
     );
   }
-})
-
-export default App;
+};

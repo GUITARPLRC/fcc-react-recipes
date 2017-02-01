@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Panel, ListGroup, ListGroupItem, ButtonToolbar, Button } from 'react-bootstrap';
 import Modal from './Modal';
 
-var RecipeCard = React.createClass({
-	getInitialState() {
-		return {
-			showModal: false,
-			index: this.props.id
+export default class RecipeCard extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			showModal: false
 		}
-	},
+	}
 
-	open() {
+	open = () => {
 		this.setState({showModal: true});
-	},
+	}
 
-	close() {
+	close = () => {
 		this.setState({showModal: false});
-	},
+	}
 
 	render() {
-		const {title, ingredients, bsStyle, handleClick, ...other} = this.props;
+		const {title, ingredients, bsStyle, handleDelete, ...other} = this.props;
 
 		var list = [];
 		for (let i = 0; i < ingredients.length; i++) {
@@ -34,13 +34,11 @@ var RecipeCard = React.createClass({
 				</ListGroup>
 				<ButtonToolbar>
 					<Button bsStyle="default" onClick={this.open}>Edit Recipe</Button>
-					<Button bsStyle="danger" onClick={el => handleClick(el.target.parentNode.parentNode.parentNode.id)}>Delete Recipe</Button>
+					<Button bsStyle="danger" onClick={el => handleDelete(el.target.parentNode.parentNode.parentNode.id)}>Delete Recipe</Button>
 				</ButtonToolbar>
-				{ this.state.showModal && <Modal show={this.state.showModal}
-				title={title} ingredients={ingredients} close={this.close} save={this.save} /> }
+				{ this.state.showModal && <Modal title={title} ingredients={ingredients}
+					show={this.state.showModal} close={this.close} save={this.props.save} /> }
 			</Panel>
 		)
 	}
-})
-
-export default RecipeCard;
+};
