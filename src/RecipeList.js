@@ -21,10 +21,22 @@ export default class RecipeList extends Component {
 	}
 
 	save = (data) => {
-		var recipes = [
-			...this.state.recipes,
-			{...data}
-		];
+		var recipes = [...this.state.recipes];
+		// check if new recipe or edited recipe
+		var found = recipes.some( (each) => {
+			return each.title === data.title;
+		})
+		if (!found) {
+			recipes.push({...data});
+		} else {
+			for (let i = 0; i < recipes.length; i++) {
+				if (recipes[i].title === data.title) {
+					recipes[i].title = data.title;
+					recipes[i].ingredients = data.ingredients;
+				}
+			}
+		}
+
 		localStorage.setItem('recipes', JSON.stringify(recipes));
 		this.setState({
 			recipes,
@@ -42,8 +54,15 @@ export default class RecipeList extends Component {
 	render() {
 		var rows = [];
 		for (let i = 0; i < this.state.recipes.length; i++) {
-			rows.push(<RecipeCard bsStyle={"success"} title={this.state.recipes[i].title}
-				 ingredients={this.state.recipes[i].ingredients} id={i} key={i} eventKey={i} handleDelete={this.delete} />);
+			rows.push(
+				<RecipeCard bsStyle={"success"} title={this.state.recipes[i].title}
+					ingredients={this.state.recipes[i].ingredients}
+					id={i}
+					key={i}
+					eventKey={i}
+					handleDelete={this.delete}
+					update={this.save} />
+			);
 		}
 		return (
 			<div>

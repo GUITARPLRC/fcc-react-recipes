@@ -19,7 +19,7 @@ export default class RecipeCard extends Component {
 	}
 
 	render() {
-		const {title, ingredients, bsStyle, handleDelete, ...other} = this.props;
+		const {title, ingredients, bsStyle, handleDelete, update, ...other} = this.props;
 
 		var list = [];
 		for (let i = 0; i < ingredients.length; i++) {
@@ -37,7 +37,7 @@ export default class RecipeCard extends Component {
 					<Button bsStyle="danger" onClick={el => handleDelete(el.target.parentNode.parentNode.parentNode.id)}>Delete Recipe</Button>
 				</ButtonToolbar>
 				{ this.state.showModal && <Modal title={title} ingredients={ingredients}
-					show={this.state.showModal} close={this.close} save={this.props.save} /> }
+					show={this.state.showModal} close={this.close} save={update} /> }
 			</Panel>
 		)
 	}
