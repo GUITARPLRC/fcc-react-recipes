@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar, Grid } from 'react-bootstrap';
 
-export default class Header extends Component {
-	render() {
+const Header = () => {
 		return (
 			<div>
 				<Navbar inverse fixedTop>
@@ -16,5 +15,6 @@ export default class Header extends Component {
 				</Navbar>
 			</div>
 		)
-	}
-}
+};
+
+export default Header;

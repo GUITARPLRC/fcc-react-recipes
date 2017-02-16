@@ -65,17 +65,24 @@ export default class RecipeList extends Component {
 			);
 		}
 		return (
-			<div>
-				<Jumbotron>
-					<Grid className="well">
-						<Accordion>
-							{rows}
-						</Accordion>
-						<Button bsSize="large" bsStyle="primary" onClick={this.open}>Add Recipe</Button>
-					</Grid>
-				</Jumbotron>
-				{ this.state.showModal && <Modal show={this.state.showModal} close={this.close} save={this.save} /> }
-			</div>
+			<MyJumbo rows={rows} open={this.open} showModal={this.state.showModal}
+				close={this.close} save={this.save} />
 		)
 	}
 };
+
+const MyJumbo = ({rows, open, showModal, close, save}) => {
+	return (
+		<div>
+			<Jumbotron>
+				<Grid className="well">
+					<Accordion>
+						{rows}
+					</Accordion>
+					<Button bsSize="large" bsStyle="primary" onClick={open}>Add Recipe</Button>
+				</Grid>
+			</Jumbotron>
+			{ showModal && <Modal show={showModal} close={close} save={save} /> }
+		</div>
+	)
+}
